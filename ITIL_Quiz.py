@@ -75,7 +75,7 @@ class Quiz:
     def show_instructions(self):
         """Show instructions to the user"""
         clear_screen()
-        print self.instructions
+        print (self.instructions)
 
     def get_problems(self):
         """Generate problems"""
@@ -86,7 +86,7 @@ class Quiz:
 
     def get_user_input(self):  # pylint: disable=I0011,R0201
         """Return the input from the user"""
-        return raw_input(" ~> ")
+        return input(" ~> ")
 
     def print_missed_problem_summary(self):
         """Prints the results of the quiz"""
@@ -110,17 +110,17 @@ class Quiz:
         score = correct_count / (problem_count + 0.0) * 100
 
         if unattempted_count > 0:
-            print("\n Score: {} / {} Missed: {}" +
+            print(("\n Score: {} / {} Missed: {}" +
                   " Attempted: {} {}%\n").format(correct_count,
                                                  problem_count,
                                                  missed_count,
                                                  attempted_count,
-                                                 score)
+                                                 score))
         else:
-            print("\n Score: {} / {} Missed: {}  {}%\n").format(correct_count,
+            print(("\n Score: {} / {} Missed: {}  {}%\n").format(correct_count,
                                                                 problem_count,
                                                                 missed_count,
-                                                                score)
+                                                                score))
 
         if score == 100:
             print(" Damn, son. Nice work.")
@@ -152,15 +152,15 @@ class Quiz:
 
         for problem in problem_generator:
             clear_screen()
-            print("\n Problem {} of {}:").format(current_problem_number,
-                                                 number_of_problems)
+            problem_string = "\n Problem {} of {}:"
+            print(problem_string.format(current_problem_number,number_of_problems))
             print(str(problem) + "\n")
             user_input = self.get_user_input().upper()
 
             while user_input not in keys:
                 clear_screen()
-                print("\n Problem {} of {}:").format(current_problem_number,
-                                                     number_of_problems)
+                problem_string = "\n Problem {} of {}:"
+                print(problem_string.format(current_problem_number,number_of_problems))
                 print(str(problem) + "\n")
                 print(" Enter <a>, <s>, <d>, <f> to answer, or <q> to quit.")
                 user_input = self.get_user_input().upper()
@@ -198,9 +198,8 @@ class Problem:  # pylint: disable=I0011,R0902
     def print_result(self):
         """Print result."""
         print(self.question_string())
-        print(" You answered:    {}").format(self.user_answer)
-        print(" Correct Answer:  {}").format(self.keys[int(self.answer) - 1]
-                                             .strip())
+        print((" You answered:    {}").format(self.user_answer))
+        print((" Correct Answer:  {}").format(self.keys[int(self.answer) - 1]).strip())
 
         wrapper = textwrap.TextWrapper(initial_indent=" ",
                                        subsequent_indent=" ",
@@ -208,7 +207,7 @@ class Problem:  # pylint: disable=I0011,R0902
 
         print
         for line in wrapper(self.explanation):
-            print line
+            print(line)
         print
 
     def question_string(self):
@@ -242,7 +241,6 @@ def main():
     args = parser.parse_args()
     quizzer = Quiz(args)
     quizzer.play()
-
 
 if __name__ == "__main__":
     main()
